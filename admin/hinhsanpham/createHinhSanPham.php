@@ -22,7 +22,7 @@
             <!-- CONTENT -->
             <div class="col-9">
                 <?php
-                include_once __DIR__ . '/../../dbconnect.php';
+                include_once __DIR__  . '/../../dbconnect.php';
 
                 $sqlSelectSanPham =  "SELECT * FROM sanpham;";
 
