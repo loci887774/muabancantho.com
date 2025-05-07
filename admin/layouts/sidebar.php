@@ -13,6 +13,7 @@
             <li><a href="/muabancantho.com/admin/loaisanpham" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Loại sản phẩm</a></li>
             <li><a href="/muabancantho.com/admin/sanpham" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sản phẩm</a></li>
             <li><a href="/muabancantho.com/admin/nhasanxuat" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Nhà sản xuất</a></li>
+            <li><a href="/muabancantho.com/admin/hinhsanpham" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Hình sản phẩm</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Hình thức thanh toán</a></li>
           </ul>
         </div>
