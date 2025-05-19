@@ -31,7 +31,7 @@
             <div class="col-8">
                 <h1>Cập nhật sản phẩm</h1>
 
-                <!-- php truy vấn loại sản phẩm -->
+                <!-- php truy vấn loại sản phẩm cũ -->
                 <?php
                 include_once __DIR__ . '/../../dbconnect.php';
 
@@ -60,7 +60,7 @@
                     );
                 }   
 
-                // php truy vấn nhà sản xuất
+                // php truy vấn nhà sản xuất 
                 $sqlSelectNhaSanXuat = "SELECT * FROM nhasanxuat;";
 
                 $dataNhaSanXuat = mysqli_query($conn, $sqlSelectNhaSanXuat);
