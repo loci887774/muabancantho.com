@@ -254,6 +254,7 @@ while($row = mysqli_fetch_array($dataSP, MYSQLI_ASSOC)) {
                 htmlTemplate += '<td>'+ (sp_gia * sp_soluong) +'</td>';
                 htmlTemplate += '<td><button type="button" name="sp_dh_dongia" class="btn btn-danger btn-delete-row">Xóa</button><td>';
                 htmlTemplate += '</tr>';
+                
 
                 //3. chèn đoạn template HTML vào trong table
                 $('#tblChiTietDonHang tbody').append(htmlTemplate);
