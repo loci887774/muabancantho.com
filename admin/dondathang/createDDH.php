@@ -92,15 +92,15 @@ while($row = mysqli_fetch_array($dataSP, MYSQLI_ASSOC)) {
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="dh_ngaylap">Ngày lập</label>
-                            <input type="datetime-local" class="form-select">
+                            <input type="datetime-local" class="form-select" name="dh_ngaylap">
                         </div>
                         <div class="col-4">
                             <label for="dh_ngaygiao">Ngày giao</label>
-                            <input type="datetime-local" class="form-select">
+                            <input type="datetime-local" class="form-select" name="dh_ngaygiao"> 
                         </div>
                         <div class="col-4">
                             <label for="dh_noigiao">Nơi giao</label>
-                            <input type="datetime-local" class="form-select">
+                            <input type="text" class="form-select" name="dh_noigiao">
                         </div>
                     </div>
                     <div class="row">
@@ -148,7 +148,7 @@ while($row = mysqli_fetch_array($dataSP, MYSQLI_ASSOC)) {
                             </select>
                         </div>
                         <div class="col-4">
-                            <label for="sp_soluong">Số lượng</label>
+                            <label for="soluongmua">Số lượng</label>
                             <input type="number" name="sp_soluong" id="sp_soluong" class="form-control">
                         </div>
                         <div class="col-4">
@@ -172,10 +172,51 @@ while($row = mysqli_fetch_array($dataSP, MYSQLI_ASSOC)) {
                                 <tbody>
                                 </tbody>      
                             </table>
-                            <button type="button" class="btn btn-primary mt-3">Lưu dữ liệu</button>
+                            <button type="submit" class="btn btn-primary mt-3" name="btnSaveDDH">Lưu dữ liệu</button>
                         </div>
                     </div>
                 </form>
+
+                <?php 
+                // Nếu người dùng bấm lưu
+                if(isset($_POST['btnSaveDDH'])) {
+                    // ------------ PARSE 1: INSERT DON DAT HANG ----------------
+                    // 1. Mở kết nối
+                    include_once __DIR__ . '/../../dbconnect.php';
+
+                    $dh_ngaylap = $_POST['dh_ngaylap'];
+                    $dh_ngaygiao = $_POST['dh_ngaygiao'];
+                    $dh_noigiao = $_POST['dh_noigiao'];
+                    $dh_trangthaithanhtoan = $_POST['dh_trangthaithanhtoan'];
+                    $httt_ma = $_POST['httt_ma'];
+                    $kh_tendangnhap = $_POST['kh_tendangnhap'];
+
+                    // 2. Chuẩn bị câu lệnh INSERT dondathang
+                    $sqlInsertDonDatHang = "INSERT INTO dondathang
+                        (dh_ngaylap, dh_ngaygiao, dh_noigiao, dh_trangthaithanhtoan, httt_ma, kh_tendangnhap)
+                        VALUES ('$dh_ngaylap', '$dh_ngaygiao', '$dh_noigiao', $dh_trangthaithanhtoan, $httt_ma, '$kh_tendangnhap');";
+
+                    // 3. Thực thi câu lệnh
+                    mysqli_query($conn, $sqlInsertDonDatHang);
+                    // 4. Lấy INSERTED_ID (id mới nhất vừa thêm)
+                    $dh_ma = $conn->insert_id;
+
+                    // ----------- PARSE 2: INSERT CAC CHI TIET DON DAT HANG -------------
+                    for($i = 0; $i < count($_POST['sp_ma']); $i++) {
+                        // Chuẩn bị câu lệnh
+                        $sp_ma = $_POST['sp_ma'][$i];
+                        $sp_dh_soluong = $_POST['sp_dh_soluong'][$i];
+                        $sp_dh_dongia = $_POST['sp_dh_dongia'][$i];
+
+                        $sqlInsertSanPhamDonDatHang = "INSERT INTO sanpham_dondathang
+                                            (sp_ma, dh_ma, sp_dh_soluong, sp_dh_dongia)
+                                            VALUES ($sp_ma, $dh_ma, $sp_dh_soluong, $sp_dh_dongia);";
+
+                        // Thực thi
+                        mysqli_query($conn, $sqlInsertSanPhamDonDatHang);
+                    }
+                }
+                ?>
             </div>
 
 
